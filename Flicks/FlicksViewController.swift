@@ -10,10 +10,31 @@ import UIKit
 
 class FlicksViewController: UIViewController {
 
+    var movies: [NSDictionary] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // load the movies
+        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
+        let request = URLRequest(url: url!)
+        
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(with: request,completionHandler: { (dataOrNil, response, error) in
+            if let data = dataOrNil {
+                if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
+                    
+                    self.movies = responseDictionary["results"] as! [NSDictionary]
+                    NSLog("response: \(self.movies)")
+                }
+            }
+        });
+        task.resume()
     }
 
     override func didReceiveMemoryWarning() {
