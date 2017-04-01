@@ -73,6 +73,21 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // get the index path of the sender
+        let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
+        
+        // get the detail view controller
+        let detailViewController = segue.destination as! MovieDetailsViewController
+        
+        // set the image in the detail view controller from the cell image
+        let movie = movies[indexPath!.row] as NSDictionary
+        let posterPath = movie["poster_path"] as! String
+        if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w342/\(posterPath)") {
+            detailViewController.imageUrl = imageUrl
+        }
+    }
 
     /*
     // MARK: - Navigation
