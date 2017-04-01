@@ -66,9 +66,9 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         let posterPath = movie["poster_path"] as! String
         
         cell.titleLabel.text = title
-        cell.summaryLabel.text = overview
+        cell.overviewLabel.text = overview
         if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w45/\(posterPath)") {
-            cell.movieImageLabel.setImageWith(imageUrl)
+            cell.posterImageView.setImageWith(imageUrl)
         }
         
         return cell

@@ -50,8 +50,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="movieImageLabel" destination="6DU-fT-4t3" id="tbF-ur-2CT"/>
-                                            <outlet property="summaryLabel" destination="Wsf-Xf-rOi" id="Lk4-vn-j18"/>
+                                            <outlet property="overviewLabel" destination="Wsf-Xf-rOi" id="wR5-Fh-pfQ"/>
+                                            <outlet property="posterImageView" destination="6DU-fT-4t3" id="aVq-GE-ix9"/>
                                             <outlet property="titleLabel" destination="mUO-YE-nni" id="hKc-3Z-OdV"/>
                                             <segue destination="NOY-Z7-bgf" kind="push" id="JY3-yg-jLN"/>
                                         </connections>
