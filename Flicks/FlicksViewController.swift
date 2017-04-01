@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import AFNetworking
 
-class FlicksViewController: UIViewController {
+class FlicksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var tableView: UITableView!
+    
     var movies: [NSDictionary] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // table view configuration
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = 130
+        
         // load the movies
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
         let request = URLRequest(url: url!)
@@ -30,6 +38,8 @@ class FlicksViewController: UIViewController {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
                     
                     self.movies = responseDictionary["results"] as! [NSDictionary]
+                    
+                    self.tableView.reloadData()
                     NSLog("response: \(self.movies)")
                 }
             }
@@ -42,6 +52,27 @@ class FlicksViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
+        
+        // parse the data
+        let movie = movies[indexPath.row] as NSDictionary
+        let title = movie["title"] as! String
+        let overview = movie["overview"] as! String
+        let posterPath = movie["poster_path"] as! String
+        
+        cell.titleLabel.text = title
+        cell.summaryLabel.text = overview
+        if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w45/\(posterPath)") {
+            cell.movieImageLabel.setImageWith(imageUrl)
+        }
+        
+        return cell
+    }
 
     /*
     // MARK: - Navigation
