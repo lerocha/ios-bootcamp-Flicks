@@ -36,6 +36,14 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         refreshControl.addTarget(self, action: #selector(FlicksViewController.refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         refreshControlAction(refreshControl)
+        
+        // navigation bar
+        self.navigationItem.title = "Movies"
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.tintColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            navigationBar.barStyle = .blackTranslucent
+            navigationBar.backgroundColor = UIColor(colorLiteralRed: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        }
     }
     
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
