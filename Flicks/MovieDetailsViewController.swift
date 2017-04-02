@@ -24,10 +24,35 @@ class MovieDetailsViewController: UIViewController {
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
 
-        posterImageView.setImageWith(movie.posterUrl!)
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
         overviewLabel.sizeToFit()
+
+        // fade in image loaded from network
+        let imageRequest = URLRequest(url: movie.posterUrl!)
+        posterImageView.setImageWith(
+            imageRequest,
+            placeholderImage: nil,
+            success: { (imageRequest, imageResponse, image) in
+                if (imageResponse != nil) {
+                    // not in cache, so fade in image
+                    print("image not in cache: fade in image")
+                    self.posterImageView.alpha = 0.0
+                    self.posterImageView.image = image
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.posterImageView.alpha = 1
+                    })
+                    
+                } else {
+                    // already in cache, so just update it
+                    print("image already in cache: update image")
+                    self.posterImageView.image = image
+                }
+        }) { (imageRequest, imageResponse, error) in
+            // error handling
+            print("error loading image: " + (imageRequest.url?.absoluteString)!)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
