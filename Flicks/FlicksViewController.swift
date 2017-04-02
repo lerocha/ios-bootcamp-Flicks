@@ -101,7 +101,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         // get the current movie
         let movie = filteredMovies[indexPath.row]
         
-        // set cell
+        // set cell data
         cell.titleLabel.text = movie.title
         cell.overviewLabel.text = movie.overview
 
