@@ -10,17 +10,21 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class FlicksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FlicksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         errorView.isHidden = true
+        
+        searchBar.delegate = self
         
         // table view configuration
         tableView.delegate = self
@@ -72,6 +76,8 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
                         let movie = Movie(movie: movieDict as NSDictionary)
                         self.movies.append(movie)
                     }
+                    self.filteredMovies = []
+                    self.filteredMovies.append(contentsOf: self.movies)
                     self.tableView.reloadData()
                     refreshControl.endRefreshing()
                 }
@@ -86,14 +92,14 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count;
+        return filteredMovies.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
         
         // get the current movie
-        let movie = movies[indexPath.row]
+        let movie = filteredMovies[indexPath.row]
         
         // set cell
         cell.titleLabel.text = movie.title
@@ -110,6 +116,15 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         let detailViewController = segue.destination as! MovieDetailsViewController
         
         // set the movie model in the detail view controller
-        detailViewController.movie = movies[indexPath!.row]
+        detailViewController.movie = filteredMovies[indexPath!.row]
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredMovies = searchText.isEmpty ? movies : movies.filter({ (movie: Movie) -> Bool in
+            // search in both title and overview fields
+            return (movie.title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil) ||
+            (movie.overview.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil)
+        })
+        tableView.reloadData()
     }
 }
