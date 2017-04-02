@@ -8,11 +8,11 @@ Time spent: **X** hours spent in total
 
 The following **required** functionality is completed:
 
-- [ ] User can view a list of movies currently playing in theaters. Poster images load asynchronously.
-- [ ] User can view movie details by tapping on a cell.
-- [ ] User sees loading state while waiting for the API.
-- [ ] User sees an error message when there is a network error.
-- [ ] User can pull to refresh the movie list.
+- [x] User can view a list of movies currently playing in theaters. Poster images load asynchronously.
+- [x] User can view movie details by tapping on a cell.
+- [x] User sees loading state while waiting for the API.
+- [x] User sees an error message when there is a network error.
+- [x] User can pull to refresh the movie list.
 
 The following **optional** features are implemented:
 
@@ -39,6 +39,17 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+1. Pull-to-refresh: bind the action to the refresh control
+To bind the action to the refresh control, the documentation https://guides.codepath.com/ios/Table-View-Guide#adding-pull-to-refresh suggests to use:
+```
+refreshControl.addTarget(self, action: #selector(refreshControlAction(_refreshControl:)), for: UIControlEvents.valueChanged)
+```
+But I get a compilation error and was able to implement it by using the code below instead:
+```
+refreshControl.addTarget(self, action: #selector(FlicksViewController.refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+```
+Not sure if the documentation is incorrect or different versions of XCode.
 
 ## License
 
