@@ -104,7 +104,28 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         // set cell
         cell.titleLabel.text = movie.title
         cell.overviewLabel.text = movie.overview
-        cell.posterImageView.setImageWith(movie.smallPosterUrl!)
+
+        // fade in image loaded from network
+        let imageRequest = URLRequest(url: movie.smallPosterUrl!)
+        cell.posterImageView.setImageWith(imageRequest, placeholderImage: nil, success: { (imageRequest, imageResponse, image) in
+            if (imageResponse != nil) {
+                // not in cache, so fade in image
+                print("image not in cache: fade in image")
+                cell.posterImageView.alpha = 0.0
+                cell.posterImageView.image = image
+                UIView.animate(withDuration: 0.4, animations: {
+                    cell.posterImageView.alpha = 1.0
+                })
+            } else {
+                // already in cache, so just update it
+                print("image already in cache: update image")
+                cell.posterImageView.image = image
+            }
+        }) { (imageRequest, imageResponse, error) in
+            // error handling
+            print("error loading image: " + (imageRequest.url?.absoluteString)!)
+        }
+        
         return cell
     }
     

@@ -39,10 +39,9 @@ class MovieDetailsViewController: UIViewController {
                     print("image not in cache: fade in image")
                     self.posterImageView.alpha = 0.0
                     self.posterImageView.image = image
-                    UIView.animate(withDuration: 0.3, animations: {
+                    UIView.animate(withDuration: 0.4, animations: {
                         self.posterImageView.alpha = 1
                     })
-                    
                 } else {
                     // already in cache, so just update it
                     print("image already in cache: update image")
