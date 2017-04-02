@@ -14,6 +14,7 @@
 		2700351C1E902AA7008A0C0A /* FlicksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2700351B1E902AA7008A0C0A /* FlicksViewController.swift */; };
 		272421161E90353900BE8334 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272421151E90353900BE8334 /* MovieCell.swift */; };
 		2762B7F41E9049DE00FE9E50 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2762B7F31E9049DE00FE9E50 /* MovieDetailsViewController.swift */; };
+		27A9874C1E907B0D00DCF55D /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A9874B1E907B0D00DCF55D /* Movie.swift */; };
 		B42E5EE9E8703B4EB43BCE7B /* Pods_Flicks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E8E66903D4EF3BCB648179 /* Pods_Flicks.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		2700351B1E902AA7008A0C0A /* FlicksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlicksViewController.swift; sourceTree = "<group>"; };
 		272421151E90353900BE8334 /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		2762B7F31E9049DE00FE9E50 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		27A9874B1E907B0D00DCF55D /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		68E8E66903D4EF3BCB648179 /* Pods_Flicks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flicks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7635DD6465982C8A7E3B8A86 /* Pods-Flicks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flicks/Pods-Flicks.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +67,7 @@
 		270035081E902984008A0C0A /* Flicks */ = {
 			isa = PBXGroup;
 			children = (
+				27A9874A1E907AF400DCF55D /* Model */,
 				270035091E902984008A0C0A /* AppDelegate.swift */,
 				2700350D1E902984008A0C0A /* Main.storyboard */,
 				2700351B1E902AA7008A0C0A /* FlicksViewController.swift */,
@@ -75,6 +78,14 @@
 				2762B7F31E9049DE00FE9E50 /* MovieDetailsViewController.swift */,
 			);
 			path = Flicks;
+			sourceTree = "<group>";
+		};
+		27A9874A1E907AF400DCF55D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				27A9874B1E907B0D00DCF55D /* Movie.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		5DD05B3F8F4BB400325FE5D9 /* Frameworks */ = {
@@ -221,6 +232,7 @@
 				2700351C1E902AA7008A0C0A /* FlicksViewController.swift in Sources */,
 				2700350A1E902984008A0C0A /* AppDelegate.swift in Sources */,
 				272421161E90353900BE8334 /* MovieCell.swift in Sources */,
+				27A9874C1E907B0D00DCF55D /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

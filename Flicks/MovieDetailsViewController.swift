@@ -13,13 +13,13 @@ class MovieDetailsViewController: UIViewController {
 
     @IBOutlet weak var posterImageView: UIImageView!
     
-    var imageUrl: URL!
+    var movie: Movie!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        posterImageView.setImageWith(imageUrl)
+        posterImageView.setImageWith(movie.posterUrl!)
     }
 
     override func didReceiveMemoryWarning() {

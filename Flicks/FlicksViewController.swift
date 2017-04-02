@@ -13,7 +13,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet weak var tableView: UITableView!
     
-    var movies: [NSDictionary] = []
+    var movies: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +37,14 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
             if let data = dataOrNil {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
                     
-                    self.movies = responseDictionary["results"] as! [NSDictionary]
-                    
-                    self.tableView.reloadData()
+                    let moviesDict = responseDictionary["results"] as! [NSDictionary]
                     NSLog("response: \(self.movies)")
+                    
+                    for movieDict in moviesDict {
+                        let movie = Movie(movie: movieDict as NSDictionary)
+                        self.movies.append(movie)
+                    }
+                    self.tableView.reloadData()
                 }
             }
         });
@@ -59,18 +63,13 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
         
-        // parse the data
-        let movie = movies[indexPath.row] as NSDictionary
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let posterPath = movie["poster_path"] as! String
+        // get the current movie
+        let movie = movies[indexPath.row]
         
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
-        if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w45/\(posterPath)") {
-            cell.posterImageView.setImageWith(imageUrl)
-        }
-        
+        // set cell
+        cell.titleLabel.text = movie.title
+        cell.overviewLabel.text = movie.overview
+        cell.posterImageView.setImageWith(movie.smallPosterUrl!)
         return cell
     }
     
@@ -81,12 +80,8 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         // get the detail view controller
         let detailViewController = segue.destination as! MovieDetailsViewController
         
-        // set the image in the detail view controller from the cell image
-        let movie = movies[indexPath!.row] as NSDictionary
-        let posterPath = movie["poster_path"] as! String
-        if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w342/\(posterPath)") {
-            detailViewController.imageUrl = imageUrl
-        }
+        // set the movie model in the detail view controller
+        detailViewController.movie = movies[indexPath!.row]
     }
 
     /*
