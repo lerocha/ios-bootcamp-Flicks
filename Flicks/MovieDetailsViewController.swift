@@ -11,19 +11,23 @@ import AFNetworking
 
 class MovieDetailsViewController: UIViewController {
 
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var movie: Movie!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
 
-        // Do any additional setup after loading the view.
         posterImageView.setImageWith(movie.posterUrl!)
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
+        overviewLabel.sizeToFit()
     }
 
     override func didReceiveMemoryWarning() {
