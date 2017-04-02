@@ -29,27 +29,29 @@ class MovieDetailsViewController: UIViewController {
         overviewLabel.sizeToFit()
 
         // fade in image loaded from network
-        let imageRequest = URLRequest(url: movie.posterUrl!)
+        let smallImageRequest = URLRequest(url: movie.smallPosterUrl!)
+        let largeImageRequest = URLRequest(url: movie.posterUrl!)
         posterImageView.setImageWith(
-            imageRequest,
+            smallImageRequest,
             placeholderImage: nil,
-            success: { (imageRequest, imageResponse, image) in
-                if (imageResponse != nil) {
-                    // not in cache, so fade in image
-                    print("image not in cache: fade in image")
-                    self.posterImageView.alpha = 0.0
-                    self.posterImageView.image = image
-                    UIView.animate(withDuration: 0.4, animations: {
-                        self.posterImageView.alpha = 1
+            success: { (smallImageRequest, smallImageResponse, smallImage) in
+                let duration: TimeInterval = smallImageResponse != nil ? 0.4 : 0.0
+                print("image not in cache: fade in image")
+                self.posterImageView.alpha = 0.0
+                self.posterImageView.image = smallImage
+                UIView.animate(withDuration: duration, animations: {
+                    self.posterImageView.alpha = 1
+                }, completion: { (success) -> Void in
+                    self.posterImageView.setImageWith(largeImageRequest, placeholderImage: nil, success: { (largeImageRequest, largeImageResponse, largeImage) in
+                        self.posterImageView.image = largeImage
+                    }, failure: { (largeImageRequest, largeImageResponse, error) in
+                        // error handling
+                        print("error loading large image: " + (largeImageRequest.url?.absoluteString)!)
                     })
-                } else {
-                    // already in cache, so just update it
-                    print("image already in cache: update image")
-                    self.posterImageView.image = image
-                }
-        }) { (imageRequest, imageResponse, error) in
+                })
+        }) { (smallImageRequest, smallImageResponse, error) in
             // error handling
-            print("error loading image: " + (imageRequest.url?.absoluteString)!)
+            print("error loading small image: " + (smallImageRequest.url?.absoluteString)!)
         }
         
     }
