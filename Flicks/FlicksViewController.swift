@@ -27,6 +27,14 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.rowHeight = 130
         
+        // initialize a UIRefreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(FlicksViewController.refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        refreshControlAction(refreshControl)
+    }
+    
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
         // load the movies
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
         let request = URLRequest(url: url!)
@@ -49,6 +57,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
             if error != nil {
                 self.errorView.isHidden = false
                 NSLog("error: \(String(describing: error))")
+                refreshControl.endRefreshing()
                 return
             }
 
@@ -56,13 +65,15 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
                     
                     let moviesDict = responseDictionary["results"] as! [NSDictionary]
-                    NSLog("response: \(self.movies)")
+                    NSLog("totalMovies=\(moviesDict.count)")
                     
+                    self.movies = []
                     for movieDict in moviesDict {
                         let movie = Movie(movie: movieDict as NSDictionary)
                         self.movies.append(movie)
                     }
                     self.tableView.reloadData()
+                    refreshControl.endRefreshing()
                 }
             }
         });
