@@ -13,11 +13,14 @@ import MBProgressHUD
 class FlicksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorView: UIView!
     
     var movies: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        errorView.isHidden = true
         
         // table view configuration
         tableView.delegate = self
@@ -41,6 +44,13 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
             
             // Hide HUD once the network request comes back (must be done on main UI thread)
             MBProgressHUD.hide(for: self.view, animated: true)
+            
+            // Check if there is an error.
+            if error != nil {
+                self.errorView.isHidden = false
+                NSLog("error: \(String(describing: error))")
+                return
+            }
 
             if let data = dataOrNil {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
