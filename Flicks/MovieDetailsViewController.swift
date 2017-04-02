@@ -12,6 +12,8 @@ import AFNetworking
 class MovieDetailsViewController: UIViewController {
 
     @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
     
     var movie: Movie!
     
@@ -20,6 +22,8 @@ class MovieDetailsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         posterImageView.setImageWith(movie.posterUrl!)
+        titleLabel.text = movie.title
+        overviewLabel.text = movie.overview
     }
 
     override func didReceiveMemoryWarning() {

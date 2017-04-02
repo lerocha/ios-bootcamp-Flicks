@@ -67,15 +67,14 @@
 		270035081E902984008A0C0A /* Flicks */ = {
 			isa = PBXGroup;
 			children = (
+				27A9874D1E90866A00DCF55D /* ViewController */,
 				27A9874A1E907AF400DCF55D /* Model */,
 				270035091E902984008A0C0A /* AppDelegate.swift */,
 				2700350D1E902984008A0C0A /* Main.storyboard */,
-				2700351B1E902AA7008A0C0A /* FlicksViewController.swift */,
 				270035101E902984008A0C0A /* Assets.xcassets */,
 				270035121E902984008A0C0A /* LaunchScreen.storyboard */,
 				270035151E902984008A0C0A /* Info.plist */,
 				272421151E90353900BE8334 /* MovieCell.swift */,
-				2762B7F31E9049DE00FE9E50 /* MovieDetailsViewController.swift */,
 			);
 			path = Flicks;
 			sourceTree = "<group>";
@@ -86,6 +85,15 @@
 				27A9874B1E907B0D00DCF55D /* Movie.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		27A9874D1E90866A00DCF55D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2700351B1E902AA7008A0C0A /* FlicksViewController.swift */,
+				2762B7F31E9049DE00FE9E50 /* MovieDetailsViewController.swift */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 		5DD05B3F8F4BB400325FE5D9 /* Frameworks */ = {
