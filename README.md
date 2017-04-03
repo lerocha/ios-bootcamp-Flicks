@@ -2,7 +2,7 @@
 
 **Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -26,13 +26,13 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [x] ScrollView animation to automatically scroll up the movie overview when movie details screen opens 
+- [x] ScrollView animation to automatically scroll up the movie overview when movie details screen opens
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/GSQBafY.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -40,7 +40,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
-1. Pull-to-refresh: bind the action to the refresh control
+### Pull-to-refresh: bind the action to the refresh control
 To bind the action to the refresh control, the documentation https://guides.codepath.com/ios/Table-View-Guide#adding-pull-to-refresh suggests to use:
 ```
 refreshControl.addTarget(self, action: #selector(refreshControlAction(_refreshControl:)), for: UIControlEvents.valueChanged)
