@@ -74,6 +74,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
                 return
             }
 
+            self.errorView.isHidden = true
             if let data = dataOrNil {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
                     
