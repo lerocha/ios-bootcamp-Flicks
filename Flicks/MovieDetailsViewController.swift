@@ -23,6 +23,10 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
+        
+        UIView.animate(withDuration: 1, delay: 0, options: .allowAnimatedContent, animations: {
+            self.scrollView.contentOffset.y = CGFloat(200)
+        }, completion: nil)
 
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview

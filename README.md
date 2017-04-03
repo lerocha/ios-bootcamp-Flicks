@@ -26,7 +26,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] ScrollView animation to automatically scroll up the movie overview when movie details screen opens 
 
 ## Video Walkthrough
 
