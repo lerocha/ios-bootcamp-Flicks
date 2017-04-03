@@ -14,6 +14,9 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var voteLabel: UILabel!
+    @IBOutlet weak var voteCountLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -29,6 +32,9 @@ class MovieDetailsViewController: UIViewController {
         }, completion: nil)
 
         titleLabel.text = movie.title
+        voteLabel.text = "\(movie.voteAgerage)/10"
+        voteCountLabel.text = "\(movie.voteCount)"
+        yearLabel.text = "\(movie.year)"
         overviewLabel.text = movie.overview
         overviewLabel.sizeToFit()
 

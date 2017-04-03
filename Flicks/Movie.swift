@@ -15,7 +15,8 @@ class Movie : NSObject {
     var posterPath: String = ""
     var voteAgerage: Double = 0
     var voteCount: CLongLong = 0
-    var releaseDate: String = ""
+    var year: Int = 0
+    var releaseDate: Date?
     var smallPosterUrl: URL?
     var posterUrl: URL?
     
@@ -29,8 +30,15 @@ class Movie : NSObject {
         posterPath = movie["poster_path"] as! String
         voteAgerage = movie["vote_average"] as! Double
         voteCount = movie["vote_count"] as! CLongLong
-        releaseDate = movie["release_date"] as! String
         smallPosterUrl = URL(string: "https://image.tmdb.org/t/p/w45/\(posterPath)");
         posterUrl = URL(string: "https://image.tmdb.org/t/p/w342/\(posterPath)");
+
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "YYYY-MM-DD"
+        if let date = dateFormater.date(from: movie["release_date"] as! String) {
+            releaseDate = date
+            let calendar = Calendar.current
+            year = calendar.component(.year, from: date)
+        }
     }
 }
